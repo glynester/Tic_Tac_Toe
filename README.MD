@@ -17,12 +17,14 @@ print g1.log                    # Print the log of the game
 
 ##Script - where players are added as strings  
 ```
+load './lib/player.rb'
 g1 = Game.new("Fred", "George")  
 g1.move(g1.player1,"r2c2")  
 g1.move(g1.player2,"r1c2")  
 g1.move(g1.player1,"r2c1")  
 g1.move(g1.player2,"r1c3")  
 g1.move(g1.player1,"r2c3")  
+print g1.log                    # Print the log of the game  
 ```
 
 
