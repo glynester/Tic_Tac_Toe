@@ -54,7 +54,7 @@ describe Game do
 
   end
 
-  context "Complete a game" do
+  context "Complete a game with no winner" do
     it "shows the game is over" do
       g1 = Game.new("Fred", "George")
       g1.move(g1.player1,"r2c2")
@@ -67,6 +67,18 @@ describe Game do
       g1.move(g1.player2,"r1c1")
       g1.move(g1.player1,"r3c2")
       expect(g1.log).to include('GAME OVER! No one won!')
+    end
+  end
+
+  context "Complete a game with a winner" do
+    it "shows the game is over" do
+      g1 = Game.new("Fred", "George")
+      g1.move(g1.player1,"r2c2")
+      g1.move(g1.player2,"r1c2")
+      g1.move(g1.player1,"r2c1")
+      g1.move(g1.player2,"r1c3")
+      g1.move(g1.player1,"r2c3")
+      expect(g1.log).to include('GAME OVER! "Fred" won!')
     end
   end
 

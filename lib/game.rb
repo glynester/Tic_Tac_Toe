@@ -25,7 +25,7 @@ class Game
       raise "Illegal move" if !(move_is_legal?(position))
     @moves << [player, position]
     @log << "#{player.name} just moved to #{position}\n"
-    check_for_winner(player)
+    @log << "GAME OVER! \"#{player.name}\" won!\n" if there_is_a_winner?(player)
     @log << "GAME OVER! No one won!\n" if game_over?
   end
 
@@ -36,7 +36,6 @@ class Game
 
   def move_is_a_duplicate?(position)
     @moves.each {|v|
-      # puts "#{v[1]} == #{position}"
       return true if v[1] == position
     }
     return false
@@ -50,12 +49,33 @@ class Game
     @moves.count == 9
   end
 
-  def check_for_winner(player)
-    winning_position = [[:r1c1, :r1c2, :r1c3],[:r2c1, :r2c2, :r2c3],[:r3c1, :r3c2, :r3c3,],
-    [:r1c1,:r2c1,:r3c1],[:r1c2,:r2c2,:r3c2],[:r1c3,:r2c3,:r3c3],
-    [:r1c1,:r2c2,:r3c3],[:r3c1,:r2c2,:r1c3]]
-
-
+  def there_is_a_winner?(player)
+    winning_positions = [[:r1c1,:r1c2,:r1c3],[:r2c1,:r2c2,:r2c3],[:r3c1,:r3c2,:r3c3,],
+                        [:r1c1,:r2c1,:r3c1],[:r1c2,:r2c2,:r3c2],[:r1c3,:r2c3,:r3c3],
+                        [:r1c1,:r2c2,:r3c3],[:r3c1,:r2c2,:r1c3]]
+    # p player = player.name
+    winning_positions.each {|line|
+      line.each{|point|
+        points_count = 0
+        @moves.each {|v|
+          points_count += 1 if ((v[1] == point) && (v[0].name == player.name))
+        }
+        return true if points_count == 3
+      }
+    }
+    return false
   end
 
 end
+
+
+
+
+
+
+
+
+
+
+
+#
