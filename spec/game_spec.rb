@@ -91,6 +91,16 @@ describe Game do
       g1.move(g1.player2,"r1c2")
       expect(g1.log).to include('GAME OVER! "George" won!')
     end
+
+    it "shows the game is over if a player completes a diagonal row" do
+      g1 = Game.new("Fred", "George")
+      g1.move(g1.player1,"r3c1")
+      g1.move(g1.player2,"r3c2")
+      g1.move(g1.player1,"r2c2")
+      g1.move(g1.player2,"r1c1")
+      g1.move(g1.player1,"r1c3")
+      expect(g1.log).to include('GAME OVER! "Fred" won!')
+    end
   end
 
 end
