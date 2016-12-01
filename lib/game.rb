@@ -53,12 +53,14 @@ class Game
     winning_positions = [[:r1c1,:r1c2,:r1c3],[:r2c1,:r2c2,:r2c3],[:r3c1,:r3c2,:r3c3,],
                         [:r1c1,:r2c1,:r3c1],[:r1c2,:r2c2,:r3c2],[:r1c3,:r2c3,:r3c3],
                         [:r1c1,:r2c2,:r3c3],[:r3c1,:r2c2,:r1c3]]
-    # p player = player.name
     winning_positions.each {|line|
+      points_count = 0
       line.each{|point|
-        points_count = 0
+
         @moves.each {|v|
           points_count += 1 if ((v[1] == point) && (v[0].name == player.name))
+          # puts "#{v[1]} == #{point} && #{v[0].name} == #{player.name}"
+          # puts "#{points_count}"
         }
         return true if points_count == 3
       }

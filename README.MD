@@ -1,3 +1,34 @@
+
+##Adding players as objects  
+```
+g = Player.new("Glenn")  
+b = Player.new("Bevan")  
+g1 = Game.new(b,g)
+```
+
+##Adding players by default
+```
+g1 = Game.new  
+g1.move(g1.player1,"r2c2")  
+g1.move(g1.player2,"r1c2")  
+print g1.log                    # Print the log of the game  
+```
+
+
+##Script - where players are added as strings  
+```
+g1 = Game.new("Fred", "George")  
+g1.move(g1.player1,"r2c2")  
+g1.move(g1.player2,"r1c2")  
+g1.move(g1.player1,"r2c1")  
+g1.move(g1.player2,"r1c3")  
+g1.move(g1.player1,"r2c3")  
+```
+
+
+
+
+
 # Try our Tic Tac Toe Tech Test!
 
 This is a very common tech test as it demonstrates a candidate's knowledge of basic data structures.
@@ -14,5 +45,4 @@ The rules of tic-tac-toe are as follows:
 * A game is over if a player wins
 * A game is over when all fields are taken
 
-Build the business logic for a game of tic tac toe. It should be easy to implement a working game of tic tac toe by combining your code with any user interface, whether web or command line. 
-
+Build the business logic for a game of tic tac toe. It should be easy to implement a working game of tic tac toe by combining your code with any user interface, whether web or command line.
