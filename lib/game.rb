@@ -18,28 +18,39 @@ class Game
 
   def move(player, position)
     position = position.to_sym
-    if moves.count > 0
-      raise "Not your go" if (@moves.last[0].name == player.name)
-      raise "Duplicate move" if move_is_not_a_duplicate?(position)
+    if @moves.count > 0
+      raise "Not your go" if !players_turn?(player)
+      raise "Duplicate move" if move_is_a_duplicate?(position)
     end
       raise "Illegal move" if !(move_is_legal?(position))
     @moves << [player, position]
     @log << "#{player.name} just moved to #{position}\n"
+    check_for_winner(player)
+    @log << "GAME OVER! No one won!\n" if game_over?
   end
 
   private
-  def move_is_not_a_duplicate?(position)
+  def players_turn?(player)
+    @moves.last[0].name != player.name
+  end
+
+  def move_is_a_duplicate?(position)
     @moves.each {|v|
-      return false if v[0] == position
+      # puts "#{v[1]} == #{position}"
+      return true if v[1] == position
     }
-    return true
+    return false
   end
 
   def move_is_legal?(position)
     @legal_moves.include?(position)
   end
 
-  def check_for_winner
+  def game_over?
+    @moves.count == 9
+  end
+
+  def check_for_winner(player)
 
   end
 

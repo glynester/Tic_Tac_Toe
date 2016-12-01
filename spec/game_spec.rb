@@ -6,8 +6,6 @@ describe Game do
   let(:p1) {double(:player1, name: "Player1")}
   let(:p2) {double(:player2, name: "Player2")}
 
-
-
   context "start a new game" do
     it 'has 2 players initialized by default as player1 and player2' do
       g1 = Game.new
@@ -40,20 +38,47 @@ describe Game do
     it 'raises an error if someone moves twice' do
       g1 = Game.new("Fred", "George")
       g1.move(g1.player1,"r1c1")
-      expect{g1.move(g1.player1,"r1c2")}.to raise_error (RuntimeError)
+      expect{g1.move(g1.player1,"r1c2")}.to raise_error(RuntimeError, "Not your go")
     end
 
     it 'raises an error if someone makes an illegal move' do
       g1 = Game.new("Fred", "George")
-      expect{g1.move(g1.player1,"r1c4")}.to raise_error (RuntimeError)
+      expect{g1.move(g1.player1,"r1c4")}.to raise_error(RuntimeError, "Illegal move")
     end
 
     it 'raises an error if someone makes a duplicate move' do
       g1 = Game.new("Fred", "George")
       g1.move(g1.player1,"r1c1")
-      expect{g1.move(g1.player2,"r1c1")}.to raise_error (RuntimeError)
+      expect{g1.move(g1.player2,"r1c1")}.to raise_error(RuntimeError, "Duplicate move")
     end
 
   end
 
+  context "Complete a game" do
+    it "shows the game is over" do
+      g1 = Game.new("Fred", "George")
+      g1.move(g1.player1,"r2c2")
+      g1.move(g1.player2,"r1c2")
+      g1.move(g1.player1,"r2c1")
+      g1.move(g1.player2,"r2c3")
+      g1.move(g1.player1,"r1c3")
+      g1.move(g1.player2,"r3c1")
+      g1.move(g1.player1,"r3c3")
+      g1.move(g1.player2,"r1c1")
+      g1.move(g1.player1,"r3c2")
+      expect(g1.log).to include('GAME OVER! No one won!')
+    end
+  end
+
 end
+
+
+
+
+
+
+
+
+
+
+#
