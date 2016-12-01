@@ -34,16 +34,25 @@ describe Game do
     it 'shows who has made the move and what the move is' do
       g1 = Game.new("Fred", "George")
       g1.move(g1.player1,"r1c1")
-      expect(g1.moves[0]).to eq [g1.player1, "r1c1"]
+      expect(g1.moves[0]).to eq [g1.player1, :r1c1]
     end
 
     it 'raises an error if someone moves twice' do
       g1 = Game.new("Fred", "George")
       g1.move(g1.player1,"r1c1")
       expect{g1.move(g1.player1,"r1c2")}.to raise_error (RuntimeError)
-
     end
 
+    it 'raises an error if someone makes an illegal move' do
+      g1 = Game.new("Fred", "George")
+      expect{g1.move(g1.player1,"r1c4")}.to raise_error (RuntimeError)
+    end
+
+    it 'raises an error if someone makes a duplicate move' do
+      g1 = Game.new("Fred", "George")
+      g1.move(g1.player1,"r1c1")
+      expect{g1.move(g1.player2,"r1c1")}.to raise_error (RuntimeError)
+    end
 
   end
 
